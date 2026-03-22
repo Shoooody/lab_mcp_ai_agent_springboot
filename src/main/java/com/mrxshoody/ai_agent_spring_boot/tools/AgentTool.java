@@ -5,4 +5,3 @@ package com.mrxshoody.ai_agent_spring_boot.tools;
  */
 public interface AgentTool {
 }
-
