@@ -1,4 +1,4 @@
-package com.example.agent.agent;
+package com.mrxshoody.ai_agent_spring_boot.agent;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
