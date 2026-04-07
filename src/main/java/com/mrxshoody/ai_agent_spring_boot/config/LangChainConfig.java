@@ -1,6 +1,7 @@
 package com.mrxshoody.ai_agent_spring_boot.config;
 
 import com.mrxshoody.ai_agent_spring_boot.agent.BacklogAgent;
+import com.mrxshoody.ai_agent_spring_boot.tools.AgentTool;
 import dev.langchain4j.model.anthropic.AnthropicChatModel;
 //import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -44,8 +46,9 @@ public class LangChainConfig {
 
     @Bean
     public BacklogAgent backlogAgent(AnthropicChatModel model,
-                                     ObjectProvider<List<Object>> toolBeansProvider) {
-        List<Object> toolBeans = toolBeansProvider.getIfAvailable(List::of);
+                                     ObjectProvider<AgentTool> toolBeansProvider) {
+        List<Object> toolBeans = new ArrayList<>();
+        toolBeansProvider.orderedStream().forEach(toolBeans::add);
 
         return AiServices.builder(BacklogAgent.class)
                 .chatModel(model)
